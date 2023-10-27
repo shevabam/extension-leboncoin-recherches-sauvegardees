@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/popup.css">
+</head>
+<body class="lbc-saved-searches">
+
+<header>
+    <img src="img/icon_default-48.png">
+    <h1>Mes Recherches Sauvegardées Leboncoin</h1>
+</header>
+
+<div class="lbc-saved-searches__content">
+
+    <div class="lbc-saved-searches__maj-container">
+        Pour mettre à jour la liste de vos recherches sauvegardées :<br>
+        <ol>
+            <li>Accédez à la page de vos recherches sur Leboncoin (vous devez être connecté) : <a href="https://www.leboncoin.fr/mes-recherches" target="_newtab">https://www.leboncoin.fr/mes-recherches</a></li>
+            <li>
+                Rouvrez l'extension et cliquez sur le bouton ci-dessous :
+                <button class="lbc-saved-searches__maj">Récupérer les recherches</button>
+            </li>
+        </ol>
+        <span class="lbc-saved-searches__last-update"></span>
+    </div>
+
+    <div id="saved-searches">
+        <div class="loader"></div>
+
+        <!-- <ul>
+            <li><span class="saved-search-title"><a href="#" target="_newtab">Recherche #1</a></span></li>
+            <li><span class="saved-search-title"><a href="#" target="_newtab">Recherche #2</a></span></li>
+            <li><span class="saved-search-title"><a href="#" target="_newtab">Recherche #3</a></span></li>
+            <li><span class="saved-search-title"><a href="#" target="_newtab">Recherche #4</a></span></li>
+            <li><span class="saved-search-title"><a href="#" target="_newtab">Recherche #5</a></span></li>
+        </ul> -->
+    </div>
+
+</div>
+
+
+<footer>
+    <a href="https://github.com/shevabam/leboncoin-recherches-sauvegardees-extension" target="_newtab">Plus d'infos</a>
+</footer>
+
+
+<div id="lbc-saved-searches__response"></div>
+
+<script src="js/functions.js"></script>
+<script src="js/popup.js"></script>
+
+</body>
+</html>
