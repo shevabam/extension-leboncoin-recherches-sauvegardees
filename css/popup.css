@@ -59,6 +59,17 @@ body.lbc-saved-searches {
     overflow-x: hidden;
     overflow-y: auto;
 }
+.lbc-saved-searches #saved-searches .filter-container {
+    text-align: center;
+    margin-top: 10px;
+}
+.lbc-saved-searches #saved-searches .filter-container input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fafafa;
+}
 .lbc-saved-searches #saved-searches ul {
     margin-left: 0;
     padding-left: 0;

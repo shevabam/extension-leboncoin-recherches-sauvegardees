@@ -20,15 +20,15 @@ L'extension **Mes Recherches Sauvegardées Leboncoin** est disponible sur les di
 
 Après avoir installé l'extension, affichez-la dans votre barre :
 
-![](_doc/ext1.png)
+![](docs/ext1.png)
 
 Pour que l'extension affiche la liste de vos recherches sauvegardées, vous devez vous rendre sur le site Leboncoin.fr, vous y connecter et accéder à la [page de vos recherches](https://www.leboncoin.fr/mes-recherches).
 
 Une fois sur cette page, ouvrez l'extension et cliquez sur le bouton "Récupérer les recherches" :
 
-![](_doc/ext2.png)
+![](docs/ext2.png)
 
-![](_doc/ext3.png)
+![](docs/ext3.png)
 
 La liste de vos recherches sont récupérées depuis la page Leboncoin et sont désormais accessibles depuis l'extension !
 

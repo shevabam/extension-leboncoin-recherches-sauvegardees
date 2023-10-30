@@ -17,7 +17,12 @@ function showSearches() {
         render('<div class="alert alert-info">Vous n\'avez récupéré aucune recherche sauvegardée Leboncoin</div>');
     } else {
 
-        var html = '<ul>';
+        var html = '';
+
+        if (getSavedSearches.length > 5)
+            html += '<div class="filter-container"><input type="search" id="filter" placeholder="Filtrer..."></div>'
+
+        html += '<ul>';
 
         getSavedSearches.forEach((search) => {
 
@@ -33,12 +38,30 @@ function showSearches() {
 }
 
 
-
 /**
  * Insert HTML to div
  */
 function render(content) {
     document.getElementById('saved-searches').innerHTML = content;
+}
+
+
+/**
+ * Filter on search name
+ */
+function filterList() {
+    let list_items = document.querySelector('#saved-searches ul').getElementsByTagName('li');
+
+    for (var i = 0; i < list_items.length; i++) {
+        let item_text = list_items[i].textContent || list_items[i].innerText;
+
+        if (item_text.toUpperCase().indexOf(document.querySelector('input#filter').value.toUpperCase()) > -1) {
+            list_items[i].style.display = '';
+        }
+        else {
+            list_items[i].style.display = 'none';
+        }
+    }
 }
 
 

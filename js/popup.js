@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Searches list
         showSearches();
 
+        // Filter on search name
+        document.querySelector('input#filter').addEventListener("input", filterList);
+
         
         // Update button
         var updateBtn = document.querySelector('button.lbc-saved-searches__maj');
