@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
         showSearches();
 
         // Filter on search name
-        document.querySelector('input#filter').addEventListener("input", filterList);
+        if (document.querySelector('input#filter'))
+            document.querySelector('input#filter').addEventListener("input", filterList);
 
         
         // Update button

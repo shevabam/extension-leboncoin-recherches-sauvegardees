@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Mes Recherches Sauvegardées Leboncoin",
     "description": "Liste vos recherches sauvegardées Leboncoin",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "author": "@shevabam",
     "homepage_url": "https://github.com/shevabam/extension-leboncoin-recherches-sauvegardees",
     "permissions": [
