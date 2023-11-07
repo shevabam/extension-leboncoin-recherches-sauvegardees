@@ -9,11 +9,10 @@ Sur le site Leboncoin.fr, si vous disposez d'un compte, vous pouvez créer des r
 
 # Installation
 
-L'extension **Mes Recherches Sauvegardées Leboncoin** est disponible sur les différents *stores* des navigateurs suivants : 
+L'extension **Mes Recherches Sauvegardées Leboncoin** est disponible sur les navigateurs suivants : 
 
-* Google Chrome
-* Microsoft Edge
-* Vivaldi
+* [Google Chrome](https://chromewebstore.google.com/detail/mes-recherches-sauvegard%C3%A9/kcnjfcficfkhlfmhfcpgbhghpdnjfedd?hl=fr)
+* [Vivaldi (Chrome Web Store)](https://chromewebstore.google.com/detail/mes-recherches-sauvegard%C3%A9/kcnjfcficfkhlfmhfcpgbhghpdnjfedd?hl=fr)
 
 
 # Utilisation
