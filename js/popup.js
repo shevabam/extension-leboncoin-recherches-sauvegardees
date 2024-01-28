@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
     
-                var getElements = doc.querySelectorAll("div[class^='styles_SavedSearches__'] div[class^='styles_listing__'] div[class='']");
+                var getElements = doc.querySelectorAll("div[class^='styles_SavedSearches__'] div[class^='styles_listing__'] div[data-test-id='saved-search']");
     
                 var listSavedSearches = [];
 
