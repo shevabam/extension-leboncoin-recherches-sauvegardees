@@ -36,14 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 var doc = parser.parseFromString(pageSource, 'text/html');
 
                 // Test si connecté
-                var div_savedSearches = doc.querySelector("div[class^='styles_SavedSearches__']");
-                if (!div_savedSearches) {
-                    notif('lbc-saved-searches-no-result', 'warning', "Mes Recherches Sauvegardées Leboncoin", "Vous devez vous connecter sur leboncoin.fr !");
+                var div_savedSearches = doc.querySelectorAll("#mainContent div[data-test-id='saved-search']");
+                if (div_savedSearches.length == 0) {
+                    notif('lbc-saved-searches-no-result', 'warning', "Mes Recherches Sauvegardées Leboncoin", "Avez-vous des recherches sauvegardées ?");
                     return;
                 }
 
     
-                var getElements = doc.querySelectorAll("div[class^='styles_SavedSearches__'] div[class^='styles_listing__'] div[data-test-id='saved-search']");
+                var getElements = doc.querySelectorAll("#mainContent div[data-test-id='saved-search']");
     
                 var listSavedSearches = [];
 
