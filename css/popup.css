@@ -108,18 +108,22 @@ body.lbc-saved-searches {
 .lbc-saved-searches footer {
     background-color: #f0f0f0;
     padding: 8px;
+    font-size: .8rem;
+    color: #888;
     text-align: center;
     border-radius: 5px;
 }
 .lbc-saved-searches footer a {
     color: #7C7C7C;
-    font-size: 11px;
 }
 
 .lbc-saved-searches #lbc-saved-searches__response {
     display: none;
 }
 
+span.lbc-saved-searches__bullet {
+    padding: 0 1rem;
+}
 
 
 @keyframes loader-anim { 
