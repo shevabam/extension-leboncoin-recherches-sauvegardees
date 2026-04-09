@@ -12,6 +12,20 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('input#filter').addEventListener("input", filterList);
 
         
+        // Rate button
+        const rateButton = document.getElementById('lbc-saved-searches__rate-button');
+        if (rateButton) {
+            rateButton.addEventListener('click', () => {
+                const isEdge = navigator.userAgent.includes('Edg/');
+                const extensionId = chrome.runtime.id;
+                const webStoreUrl = isEdge
+                    ? `https://microsoftedge.microsoft.com/addons/detail/${extensionId}`
+                    : `https://chromewebstore.google.com/detail/${extensionId}/reviews`;
+
+                chrome.tabs.create({ url: webStoreUrl });
+            });
+        }
+
         // Update button
         var updateBtn = document.querySelector('button.lbc-saved-searches__maj');
     
@@ -53,8 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         var element_title = null;
                         var element_url = null;
     
-                        var element_url = element.querySelector("[data-test-id='saved-search'] a");
-                        var element_title = element.querySelector("[data-test-id='saved-search'] a div.flex p.text-headline-2");
+                        var element_url = element.querySelector("[data-test-id='saved-search'] a[data-test-id='consult']");
+                        var element_title = element.querySelector("[data-test-id='saved-search'] p.text-headline-2[id^='name-']");
                         
                         if (element_title != null && element_url != null) {
                             listSavedSearches.push({
