@@ -50,14 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 var doc = parser.parseFromString(pageSource, 'text/html');
 
                 // Test si connecté
-                var div_savedSearches = doc.querySelectorAll("#mainContent [data-test-id='saved-search']");
+                var div_savedSearches = doc.querySelectorAll("#mainContent ul[class^='my-searches'] li");
                 if (div_savedSearches.length == 0) {
                     notif('lbc-saved-searches-no-result', 'warning', "Mes Recherches Sauvegardées Leboncoin", "Avez-vous des recherches sauvegardées ?");
                     return;
                 }
 
     
-                var getElements = doc.querySelectorAll("#mainContent [data-test-id='saved-search']");
+                var getElements = doc.querySelectorAll("#mainContent ul[class^='my-searches'] li");
     
                 var listSavedSearches = [];
 
@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         var element_title = null;
                         var element_url = null;
     
-                        var element_url = element.querySelector("[data-test-id='saved-search'] a[data-test-id='consult']");
-                        var element_title = element.querySelector("[data-test-id='saved-search'] p.text-headline-2[id^='name-']");
+                        var element_url = element.querySelector("article > a");
+                        var element_title = element.querySelector("article p.text-headline-2[id^='name-']");
                         
                         if (element_title != null && element_url != null) {
                             listSavedSearches.push({
