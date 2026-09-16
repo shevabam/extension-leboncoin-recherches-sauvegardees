@@ -1,3 +1,55 @@
+/**
+ * Exécutée dans le contexte de la page (leboncoin.fr) : lit le token
+ * d'authentification stocké par le site lui-même et appelle leur API interne
+ * pour récupérer les recherches sauvegardées. L'URL de chaque recherche
+ * est retrouvée dans le DOM via un attribut stable, car l'API ne fournit pas
+ * d'URL directement utilisable.
+ */
+async function fetchSavedSearches() {
+    try {
+        var token = window.localStorage.getItem('luat');
+        if (!token) {
+            return { error: 'not_logged_in' };
+        }
+
+        var response = await fetch('https://api.leboncoin.fr/api/mysearch/v1/searches', {
+            headers: {
+                'accept': 'application/json',
+                'authorization': 'Bearer ' + token
+            },
+            method: 'GET',
+            mode: 'cors',
+            credentials: 'include'
+        });
+
+        if (response.status === 401 || response.status === 403) {
+            return { error: 'not_logged_in' };
+        }
+
+        if (!response.ok) {
+            return { error: 'http_' + response.status };
+        }
+
+        var searches = await response.json();
+
+        var results = searches.map(function(search) {
+            var article = document.querySelector('#mainContent ul li article[aria-labelledby="name-' + search.id + '"]');
+            var link = article ? article.querySelector('a[href]') : null;
+
+            return {
+                title: search.name,
+                url: link ? link.getAttribute('href') : '/my-searches'
+            };
+        });
+
+        return { searches: results };
+
+    } catch (e) {
+        return { error: e.message };
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         var currentTab = tabs[0];
@@ -28,73 +80,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update button
         var updateBtn = document.querySelector('button.lbc-saved-searches__maj');
-    
+
         updateBtn.addEventListener("click", function() {
+
+            var tabUrl = parseUrl(currentTabUrl);
+            if (!tabUrl.host.includes('leboncoin.fr') || !tabUrl.pathname.includes('my-searches')) {
+                notif('lbc-saved-searches-error', 'error', "Mes Recherches Sauvegardées Leboncoin", "Vous devez vous rendre sur la page de vos recherches sur leboncoin.fr !");
+                return;
+            }
 
             chrome.scripting.executeScript({
                 target: { tabId: currentTab.id },
-                function: function() {
-                    return document.documentElement.outerHTML;
-                }
-            }, function(result) {
+                world: 'MAIN',
+                function: fetchSavedSearches
+            }, function(injectionResults) {
 
-                if (!result || !parseUrl(currentTabUrl).host.includes('leboncoin.fr')) {
-                    notif('lbc-saved-searches-error', 'error', "Mes Recherches Sauvegardées Leboncoin", "Vous devez vous rendre sur la page de vos recherches sur leboncoin.fr !");
+                var data = injectionResults && injectionResults[0] ? injectionResults[0].result : null;
 
+                if (!data || data.error === 'not_logged_in') {
+                    notif('lbc-saved-searches-error', 'error', "Mes Recherches Sauvegardées Leboncoin", "Vous devez être connecté à Leboncoin !");
                     return;
                 }
 
-                var pageSource = result[0].result;
-    
-                var parser = new DOMParser();
-                var doc = parser.parseFromString(pageSource, 'text/html');
+                if (data.error) {
+                    notif('lbc-saved-searches-error', 'error', "Mes Recherches Sauvegardées Leboncoin", "Erreur lors de la récupération de vos recherches (" + data.error + ").");
+                    return;
+                }
 
-                // Test si connecté
-                var div_savedSearches = doc.querySelectorAll("#mainContent ul[class^='my-searches'] li");
-                if (div_savedSearches.length == 0) {
+                if (data.searches.length == 0) {
                     notif('lbc-saved-searches-no-result', 'warning', "Mes Recherches Sauvegardées Leboncoin", "Avez-vous des recherches sauvegardées ?");
                     return;
                 }
 
-    
-                var getElements = doc.querySelectorAll("#mainContent ul[class^='my-searches'] li");
-    
-                var listSavedSearches = [];
-
-                if (getElements.length > 0) {
-
-                    getElements.forEach((element) => {
-                        var element_title = null;
-                        var element_url = null;
-    
-                        var element_url = element.querySelector("article > a");
-                        var element_title = element.querySelector("article p.text-headline-2[id^='name-']");
-                        
-                        if (element_title != null && element_url != null) {
-                            listSavedSearches.push({
-                                title: element_title.innerHTML, 
-                                url: element_url.getAttribute("href")
-                            });
-                        }
-                    });
-                    
-                }
-    
-                
                 // Insertion des recherches + date maj dans le localStorage
-                // console.log(listSavedSearches);
-                store(JSON.stringify(listSavedSearches));
+                store(JSON.stringify(data.searches));
 
-    
                 // Notification success
                 notif('lbc-saved-searches-update', 'success', "Mes Recherches Sauvegardées Leboncoin", "Recherches mises à jour !");
 
                 // Update searches list
                 showSearches();
-                
 
             });
-    
+
         });
         
 
