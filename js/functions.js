@@ -26,7 +26,7 @@ function showSearches() {
 
         getSavedSearches.forEach((search) => {
 
-            html += '<li><span class="saved-search-title"><a href="https://www.leboncoin.fr'+search.url+'" target="_newtab">'+search.title+'</a></span></li>';
+            html += '<li><span class="saved-search-title"><a href="'+escapeHtml('https://www.leboncoin.fr'+search.url)+'" target="_newtab">'+escapeHtml(search.title)+'</a></span></li>';
 
         });
 
@@ -85,7 +85,7 @@ function formatDate(date) {
  */
 function store(searches) {
     localStorage.setItem('searches', searches);
-    localStorage.setItem('last_update', new Date());
+    localStorage.setItem('last_update', new Date().toISOString());
 }
 
 /**
@@ -105,4 +105,16 @@ function notif(id, type, title, msg) {
  */
 function parseUrl(url) {
     return new URL(url);
+}
+
+/**
+ * Escape a string before inserting it into HTML markup (text or attribute value)
+ */
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 }
